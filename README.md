@@ -1,7 +1,9 @@
 # Itube-download-DeepLink
 ## DeepLink to open youtube links in Itube app
 extensão para baixar o video atual do youtube no Itube
-Itube: https://github.com/Gu-Parlandim/ITubeDownload-a-youtube-music-video-download
+Itube: https://github.com/parlandin/ITubeDownload-a-youtube-music-video-download
+
+Esta extensão não está disponível na Chrome Web Store porque o envio requer uma taxa de publicação. No entanto, você pode instalá-la manualmente no seu navegador para uso local.
 
 ### Como instalar? 
 - chrome/edge
@@ -24,3 +26,12 @@ Itube: https://github.com/Gu-Parlandim/ITubeDownload-a-youtube-music-video-downl
 ### Resultado esperado
 ![Captura de Tela (49)](https://github.com/Gu-Parlandim/Itube-download-DeepLink/assets/56051040/28ad83ed-1da1-4ccb-a769-1094f82bf961)
 - nomes e imagens meramente ilustrativas
+Itube: https://github.com/parlandin/ITubeDownload-a-youtube-music-video-download
+
+
+
+Caso faça alguma alteração no código, basta atualizar a página `chrome://extensions/` e clicar em **Atualizar**.
+
+---
+ *Se tiver dúvidas ou sugestões, sinta-se à vontade para abrir uma issue no repositório!*
+
