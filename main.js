@@ -15,7 +15,7 @@ function createButton() {
   button.style.background = "#ffffff1a";
   button.style.border = "none";
   button.style.color = "#0db6e9";
-  button.style.padding = "10px";
+  button.style.padding = "7px 10px";
   button.style.borderRadius = "15px";
   button.style.margin = "0 10px";
   button.style.cursor = "pointer";
@@ -33,51 +33,63 @@ function createButton() {
 async function openDeepLinkOrCopy() {
   const tabUrl = window.location.href;
   await navigator.clipboard.writeText(tabUrl);
-
   window.open(`itube-download-link://${tabUrl}`, "_blank");
 }
 
 function createCopyButton() {
-  const copyButton = createButton();
-  const icon = createIcon();
-
-  copyButton.appendChild(icon);
-
-  copyButton.onclick = openDeepLinkOrCopy;
-
-  /*  const menuElement = document.querySelector(
-    "#top-level-buttons-computed.top-level-buttons.style-scope.ytd-menu-renderer"
-  );
- */
-
   const menuElement = document.querySelector(
     "#content ytd-watch-flexy ytd-menu-renderer.style-scope.ytd-watch-metadata #top-level-buttons-computed.top-level-buttons.style-scope.ytd-menu-renderer"
   );
 
+  if (!menuElement) return;
+
+ 
+  if (document.querySelector(".button-download-itube-class")) return;
+
+  const copyButton = createButton();
+  const icon = createIcon();
+  copyButton.appendChild(icon);
+  copyButton.onclick = openDeepLinkOrCopy;
+
   menuElement.appendChild(copyButton);
 }
 
-document.addEventListener("yt-navigate-finish", function () {
-  const isElement = document.querySelector(
+
+function observeMenuChanges() {
+  const menuContainer = document.querySelector(
     "#content ytd-watch-flexy ytd-menu-renderer.style-scope.ytd-watch-metadata #top-level-buttons-computed.top-level-buttons.style-scope.ytd-menu-renderer"
   );
 
-  if (!isElement) {
-    setTimeout(() => {
-      createCopyButton();
-    }, 2000);
-    return;
-  }
+  if (!menuContainer) return;
 
+  const observer = new MutationObserver(() => {
+    createCopyButton();
+  });
+
+  observer.observe(menuContainer, { childList: true, subtree: true });
+}
+
+
+document.addEventListener("yt-navigate-finish", function () {
+  setTimeout(() => {
+    createCopyButton();
+    observeMenuChanges();
+  }, 1500);
+});
+
+document.addEventListener("yt-page-data-updated", function () {
   setTimeout(() => {
     createCopyButton();
   }, 1500);
 });
 
-document.addEventListener("visibilitychange", function () {
-  const isButton = document.querySelector(".button-download-itube-class");
-
-  if (!isButton) {
+document.addEventListener("yt-navigate-start", function () {
+  setTimeout(() => {
     createCopyButton();
-  }
+  }, 1500);
+});
+
+
+document.addEventListener("visibilitychange", function () {
+  createCopyButton();
 });
